@@ -34,6 +34,7 @@ function verifyJWT(req, res, next) {
 async function run() {
     try {
         const usersCollection = client.db('hairSalon').collection('users');
+        const interestedCustomerCollection = client.db('hairSalon').collection('interestedCustomer');
 
         // VERIFY ADMIN
         const verifyAdmin = async (req, res, next) => {
@@ -51,6 +52,12 @@ async function run() {
             const user = req.body;
             console.log(user);
             const result = await usersCollection.insertOne(user);
+            res.send(result);
+        })
+        app.post('/interestedCustomer', async (req, res) => {
+            const user = req.body;
+            console.log(user);
+            const result = await interestedCustomerCollection.insertOne(user);
             res.send(result);
         })
 
