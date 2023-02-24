@@ -78,7 +78,7 @@ async function run() {
             const users = await usersCollection.find(query).toArray();
             res.send(users);
         });
-        
+
         app.get('/users/admins', async (req, res) => {
             const users = await usersCollection.find({ role: 'admin' }).toArray();
             res.send(users);
@@ -97,6 +97,15 @@ async function run() {
             const result = await usersCollection.updateOne(filter, updatedDoc, options);
             res.send(result);
         });
+
+        // DELETE 
+        app.delete('/users/:id', verifyJWT, verifyAdmin, async (req, res) => {
+            const id = req.params.id;
+            const filter = { _id: new ObjectId(id) };
+            const result = await usersCollection.deleteOne(filter);
+            res.send(result);
+        });
+
     }
     finally {
     }
