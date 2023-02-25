@@ -48,6 +48,7 @@ async function run() {
             next();
         }
 
+
         // POST METHODS
         app.post('/users', async (req, res) => {
             const user = req.body;
@@ -67,6 +68,7 @@ async function run() {
             const result = await blogsCollection.insertOne(user);
             res.send(result);
         })
+
 
         // GET METHODS
         app.get('/jwt', async (req, res) => {
@@ -98,6 +100,13 @@ async function run() {
             res.send(users);
         });
 
+        app.get('/blogs', async (req, res) => {
+            const query = {};
+            const users = await blogsCollection.find(query).toArray();
+            res.send(users);
+        });
+
+
         // UPDATE
         app.put('/users/admin/:id', verifyJWT, verifyAdmin, async (req, res) => {
             const id = req.params.id;
@@ -111,6 +120,7 @@ async function run() {
             const result = await usersCollection.updateOne(filter, updatedDoc, options);
             res.send(result);
         });
+
 
         // DELETE 
         app.delete('/users/:id', verifyJWT, verifyAdmin, async (req, res) => {
