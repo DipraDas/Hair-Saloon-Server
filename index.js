@@ -105,6 +105,12 @@ async function run() {
             const users = await blogsCollection.find(query).toArray();
             res.send(users);
         });
+        app.get('/blogs/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const users = await blogsCollection.find(query).toArray();
+            res.send(users);
+        });
 
 
         // UPDATE
