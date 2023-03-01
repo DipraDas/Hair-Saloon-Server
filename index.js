@@ -36,6 +36,7 @@ async function run() {
         const usersCollection = client.db('hairSalon').collection('users');
         const interestedCustomerCollection = client.db('hairSalon').collection('interestedCustomer');
         const blogsCollection = client.db('hairSalon').collection('blogs');
+        const commentsCollection = client.db('hairSalon').collection('comment');
 
         // VERIFY ADMIN
         const verifyAdmin = async (req, res, next) => {
@@ -66,6 +67,12 @@ async function run() {
             const user = req.body;
             console.log(user);
             const result = await blogsCollection.insertOne(user);
+            res.send(result);
+        })
+        app.post('/comments', async (req, res) => {
+            const comments = req.body;
+            console.log(comments);
+            const result = await commentsCollection.insertOne(user);
             res.send(result);
         })
 
