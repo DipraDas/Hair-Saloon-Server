@@ -72,7 +72,7 @@ async function run() {
         app.post('/comments', async (req, res) => {
             const comments = req.body;
             console.log(comments);
-            const result = await commentsCollection.insertOne(user);
+            const result = await commentsCollection.insertOne(comments);
             res.send(result);
         })
 
