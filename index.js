@@ -119,6 +119,12 @@ async function run() {
             res.send(users);
         });
 
+        app.get('/comments', async (req, res) => {
+            const query = {};
+            const users = await commentsCollection.find(query).toArray();
+            res.send(users);
+        });
+
 
         // UPDATE
         app.put('/users/admin/:id', verifyJWT, verifyAdmin, async (req, res) => {
