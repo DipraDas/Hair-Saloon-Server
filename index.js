@@ -125,6 +125,19 @@ async function run() {
             res.send(users);
         });
 
+        app.get('/mycomments', verifyJWT, async (req, res) => {
+            const email = req.query.email;
+            const decodedEmail = req.decoded.email;
+
+            if (email !== decodedEmail) {
+                return res.status(403).send({ message: 'Forbidden access' })
+            }
+            const query = {
+                userEmail: email
+            }
+            const comments = await commentsCollection.find(query).toArray();
+            res.send(comments);
+        });
 
         // UPDATE
         app.put('/users/admin/:id', verifyJWT, verifyAdmin, async (req, res) => {
