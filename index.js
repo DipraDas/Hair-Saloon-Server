@@ -37,6 +37,7 @@ async function run() {
         const interestedCustomerCollection = client.db('hairSalon').collection('interestedCustomer');
         const blogsCollection = client.db('hairSalon').collection('blogs');
         const commentsCollection = client.db('hairSalon').collection('comment');
+        const productsCollection = client.db('hairSalon').collection('products');
 
         // VERIFY ADMIN
         const verifyAdmin = async (req, res, next) => {
@@ -137,6 +138,12 @@ async function run() {
             }
             const comments = await commentsCollection.find(query).toArray();
             res.send(comments);
+        });
+
+        app.get('/products', async (req, res) => {
+            const query = {};
+            const users = await productsCollection.find(query).toArray();
+            res.send(users);
         });
 
         // UPDATE
